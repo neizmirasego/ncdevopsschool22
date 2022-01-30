@@ -1,0 +1,6 @@
+---
+# handlers file for role-docker-install
+- name: restart docker
+  service:
+    name: docker
+    state: restarted
