@@ -1,0 +1,6 @@
+---
+ - hosts: all
+   become: true
+   roles:
+     - role: role-docker-install
+       when: ansible_system == 'Linux'
