@@ -1,0 +1,26 @@
+version: '3.7'
+services:
+
+  jenkins:
+    build: .
+    privileged: true
+    user: root
+    ports:
+      - 8080:8080
+      - 50000:50000
+    restart: always
+    container_name: jenkins
+    environment:
+      JAVA_OPTS: -Djenkins.install.runSetupWizard=false
+      #JENKINS_OPTS: --argumentsRealm.roles.user=admin --argumentsRealm.passwd.admin=admin --argumentsRealm.roles.admin=admin
+      JENKINS_ADMIN_ID: admin
+      JENKINS_ADMIN_PASSWORD: admin
+    volumes:
+      - ./configs/:/jenkins_configs
+      - ./jenkins_home:/var/jenkins_home/
+volumes:
+  configs:
+    driver: local
+  jenkins_home:
+    driver: local
+
