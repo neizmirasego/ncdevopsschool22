@@ -3,7 +3,7 @@ services:
 
   jenkins:
     build: .
-    privileged: true
+    #privileged: true
     user: root
     ports:
       - 8080:8080
@@ -12,7 +12,6 @@ services:
     container_name: jenkins
     environment:
       JAVA_OPTS: -Djenkins.install.runSetupWizard=false
-      #JENKINS_OPTS: --argumentsRealm.roles.user=admin --argumentsRealm.passwd.admin=admin --argumentsRealm.roles.admin=admin
       JENKINS_ADMIN_ID: admin
       JENKINS_ADMIN_PASSWORD: admin
     volumes:
