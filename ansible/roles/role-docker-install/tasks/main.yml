@@ -29,7 +29,12 @@
       - docker-ce-cli
       - containerd.io
     state: present
-
+    
+- name: install docker-compose
+  apt:
+    name: docker-compose
+    state: present
+    
 - name: Start Docker service
   service:
     name: docker
