@@ -6,7 +6,7 @@ pipeline {
             steps {
                 echo 'Start building image'
                 dir ('jenkins-test') {
-                      sh 'docker build . '
+                      sh 'docker build -t application:$BUILD_NUMBER .'
                 }
             }
         }
