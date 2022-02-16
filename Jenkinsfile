@@ -8,7 +8,7 @@ pipeline {
                 dir ('jenkins-test') {
                       sh '''
 		      docker build -t application:$BUILD_NUMBER .
-		      echo git rev-parse --abbrev-ref HEAD
+		      git rev-parse --abbrev-ref HEAD
                       '''
                 }
             }
