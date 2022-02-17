@@ -2,11 +2,11 @@ pipeline {
     agent any
 
     stages {
-        stage('create docker image') {
+        stage('Building docker image') {
             steps {
                 echo 'Start building image'
                 dir ('jenkins-test') {
-                      sh 'docker build -t app-$BUILD_NUMBER:$BRANCH_NAME .'
+                      sh 'docker build -t application-$BUILD_NAME-$BUILD_TAG:$BRANCH_NUMBER .'
                 }
             }
         }
