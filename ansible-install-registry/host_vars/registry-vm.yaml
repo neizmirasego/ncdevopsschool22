@@ -1,0 +1,4 @@
+ansible_host: 35.192.172.239
+ansible_ssh_user: lobofffailodrom
+
+ansible_python_interpreter: /usr/bin/python3
