@@ -6,9 +6,9 @@ pipeline {
                 echo 'Start building image'
                 dir ('NC2022') {
                       sh '''
-                          docker build -t ncdevreg.ml/application-$BUILD_NUMBER .
+                          docker build -t ncdevreg.ml:5000/application-$BUILD_NUMBER .
                           docker login https://ncdevreg.ml:5000 -u "admin" -p "ncdev" 
-                          docker push ncdevreg.ml/application-$BUILD_NUMBER        
+                          docker push ncdevreg.ml:5000/application-$BUILD_NUMBER        
                       '''
                 }
             }
