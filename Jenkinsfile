@@ -14,9 +14,9 @@ pipeline {
         stage('Push docker image to local registry') {
             steps {
                 echo 'Start push docker image'
-                withCredentials([usernamePassword(credentialsId: 'localregistry', passwordVariable: 'localregistyPassword', usernameVariable: 'localregistyUser')]) {
+                withCredentials([usernamePassword(credentialsId: 'localregistry', passwordVariable: 'localregistryPassword', usernameVariable: 'localregistryUser')]) {
                       sh '''
-                          docker login https://ncdevreg.ml:5000 -u ${env.localregistyUser} -p ${env.localregistyPassword}
+                          docker login https://ncdevreg.ml:5000 -u ${env.localregistryUser} -p ${env.localregistryPassword}
                           docker push ncdevreg.ml:5000/application-$BUILD_NUMBER
                       '''
                 }
