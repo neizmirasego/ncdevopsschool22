@@ -6,7 +6,7 @@ pipeline {
                 echo 'Start building docker image'
                 dir ('NC2022') {
                       sh '''
-                          docker build -t ncdevreg.ml:5000/application:$BUILD_NUMBER .
+                          docker build -t ncdevreg.ml:5000/application:$BUILD_NUMBER | tr '[:upper:]' '[:lower:]' .
                       '''
                 }
             }
@@ -19,7 +19,7 @@ pipeline {
                                                   usernameVariable: 'localregistryUser')])
                   {
                     sh ('docker login https://ncdevreg.ml:5000 -u $localregistryUser -p $localregistryPassword')
-                    sh ('docker push ncdevreg.ml:5000/application:$BUILD_NUMBER')
+                    sh ('docker push ncdevreg.ml:5000/application-$BRANCH_NAME:$BUILD_NUMBER' | tr '[:upper:]' '[:lower:]')
                   }
          }
       }
