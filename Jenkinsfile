@@ -4,7 +4,7 @@ pipeline {
         stage('Building docker image') {
             steps {
                 echo 'Start building docker image'
-                dir ('NC20223') {
+                dir ('NC2022') {
                       sh ('docker build -t ncdevreg.ml:5000/application:$GIT_BRANCH-$BUILD_NUMBER .')
                 }
             }
@@ -28,7 +28,7 @@ pipeline {
         		  string(credentialsId: 'idchatncdev22', variable: 'CHAT_ID')]) 
             {
                 sh  ("""
-                        curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${CHAT_ID} -d parse_mode=markdown -d text='*$JOB_NAME* : POC *Branch*: $GIT_BRANCH *Build* : OK'
+                        curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${CHAT_ID} -d parse_mode=markdown -d text='*$JOB_NAME* : RESULT *Branch*: $GIT_BRANCH *Build* : OK'
                     """)
             }
      }
@@ -38,7 +38,7 @@ pipeline {
         		  string(credentialsId: 'idchatncdev22', variable: 'CHAT_ID')]) 
             {
                sh  ("""
-                       curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${CHAT_ID} -d parse_mode=markdown -d text='*$JOB_NAME* : POC  *Branch*: $GIT_BRANCH *Build* : `not OK`'
+                       curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${CHAT_ID} -d parse_mode=markdown -d text='*$JOB_NAME* : RESULT  *Branch*: $GIT_BRANCH *Build* : `not OK`'
                     """)
             }
      }
