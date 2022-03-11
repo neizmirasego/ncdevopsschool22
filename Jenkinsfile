@@ -8,7 +8,12 @@ pipeline {
                       sh ('docker build -t ncdevreg.ml:5000/application:$GIT_BRANCH-$BUILD_NUMBER .')
                 }
             }
-        }
+         post {
+         	failure {
+         		echo 'stage Building docker image is NotOk'
+         	}
+         }
+       }
         stage('Push docker image to local registry') {
             steps {
                 echo 'Login docker registry and push docker image'
@@ -19,6 +24,11 @@ pipeline {
                     sh ('docker login https://ncdevreg.ml:5000 -u $localregistryUser -p $localregistryPassword')
                     sh ('docker push ncdevreg.ml:5000/application:$GIT_BRANCH-$BUILD_NUMBER')
                   }
+         }
+         post {
+         	failure {
+         		echo 'stage Push docker image to local registry is NotOk'
+         	}
          }
       }
    }
