@@ -4,7 +4,7 @@ pipeline {
         stage('Building docker image') {
             steps {
                 echo 'Start building docker image'
-                dir ('NC2022') {
+                dir ('NC202') {
                       sh ('docker build -t ncdevreg.ml:5000/application:$GIT_BRANCH-$BUILD_NUMBER .')
                 }
             }
