@@ -1,3 +1,15 @@
+def stage(String name, Closure cl) {
+    echo "Stage: ${name}"
+    try {
+        cl()
+    } catch (Exception e) {
+        if (!env.FAILED_STAGE) {
+            env.FAILED_STAGE = name
+            env.FAILED_MESSAGE = e.getMessage()
+        }
+    }
+}
+
 pipeline {
     agent any
     stages {
@@ -8,11 +20,7 @@ pipeline {
                       sh ('docker build -t ncdevreg.ml:5000/application:$GIT_BRANCH-$BUILD_NUMBER .')
                 }
             }
-         post {
-         	failure {
-         		echo 'stage Building docker image is NotOk'
-         	}
-         }
+
        }
         stage('Push docker image to local registry') {
             steps {
@@ -24,11 +32,6 @@ pipeline {
                     sh ('docker login https://ncdevreg.ml:5000 -u $localregistryUser -p $localregistryPassword')
                     sh ('docker push ncdevreg.ml:5000/application:$GIT_BRANCH-$BUILD_NUMBER')
                   }
-         }
-         post {
-         	failure {
-         		echo 'stage Push docker image to local registry is NotOk'
-         	}
          }
       }
    }
@@ -48,7 +51,7 @@ pipeline {
         		  string(credentialsId: 'idchatncdev22', variable: 'CHAT_ID')]) 
             {
                sh  ("""
-                       curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${CHAT_ID} -d parse_mode=markdown -d text='*$JOB_NAME* : RESULT  *Branch*: $GIT_BRANCH *Build* : `not OK`'
+                       curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${CHAT_ID} -d parse_mode=markdown -d text='*$JOB_NAME* : RESULT  *Branch*: $GIT_BRANCH *Build* : `not OK` ${env.FAILED_STAGE}'
                     """)
             }
      }
