@@ -4,13 +4,14 @@ pipeline {
         stage('Building docker image') {
             steps {
                 echo 'Start building docker image'
-                dir ('NC202') {
+                dir ('NC20') {
                       sh ('docker build -t ncdevreg.ml:5000/application:$GIT_BRANCH-$BUILD_NUMBER .')
                 }
             }
-         post {
+            post {
          	failure {
-         		echo 'stage Building docker image is NotOk'
+         		script {
+         			env.STAGE = "failure building"}
          	}
          }
        }
@@ -24,11 +25,6 @@ pipeline {
                     sh ('docker login https://ncdevreg.ml:5000 -u $localregistryUser -p $localregistryPassword')
                     sh ('docker push ncdevreg.ml:5000/application:$GIT_BRANCH-$BUILD_NUMBER')
                   }
-         }
-         post {
-         	failure {
-         		echo 'stage Push docker image to local registry is NotOk'
-         	}
          }
       }
    }
@@ -48,7 +44,7 @@ pipeline {
         		  string(credentialsId: 'idchatncdev22', variable: 'CHAT_ID')]) 
             {
                sh  ("""
-                       curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${CHAT_ID} -d parse_mode=markdown -d text='*$JOB_NAME* : RESULT  *Branch*: $GIT_BRANCH *Build* : `not OK`'
+                       curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${CHAT_ID} -d parse_mode=markdown -d text='*$JOB_NAME* : RESULT  *Branch*: $GIT_BRANCH *Build* : not OK ${env.FOO}'
                     """)
             }
      }
