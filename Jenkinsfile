@@ -11,7 +11,7 @@ pipeline {
             post {
          	failure {
          		script {
-         			env.STAGE = "failure building"}
+         			env.STAGEBUILD = "Failure at stage BUILDING docker image"}
          	}
          }
        }
@@ -25,6 +25,12 @@ pipeline {
                     sh ('docker login https://ncdevreg.ml:5000 -u $localregistryUser -p $localregistryPassword')
                     sh ('docker push ncdevreg.ml:5000/application:$GIT_BRANCH-$BUILD_NUMBER')
                   }
+         }
+           post {
+         	failure {
+         		script {
+         			env.STAGEPUSH = "Failure at stage PUSH docker image"}
+         	}
          }
       }
    }
@@ -44,7 +50,7 @@ pipeline {
         		  string(credentialsId: 'idchatncdev22', variable: 'CHAT_ID')]) 
             {
                sh  ("""
-                       curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${CHAT_ID} -d parse_mode=markdown -d text='*$JOB_NAME* : RESULT  *Branch*: $GIT_BRANCH *Build* : not OK ${env.STAGE}'
+                       curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${CHAT_ID} -d parse_mode=markdown -d text='*$JOB_NAME* : RESULT  *Branch*: $GIT_BRANCH *Build* : NOT ok: ${env.STAGEBUILD} ${env.STAGEPUSH}'
                     """)
             }
      }
