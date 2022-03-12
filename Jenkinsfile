@@ -44,7 +44,7 @@ pipeline {
         		  string(credentialsId: 'idchatncdev22', variable: 'CHAT_ID')]) 
             {
                sh  ("""
-                       curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${CHAT_ID} -d parse_mode=markdown -d text='*$JOB_NAME* : RESULT  *Branch*: $GIT_BRANCH *Build* : not OK ${env.FOO}'
+                       curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${CHAT_ID} -d parse_mode=markdown -d text='*$JOB_NAME* : RESULT  *Branch*: $GIT_BRANCH *Build* : not OK ${env.STAGE}'
                     """)
             }
      }
