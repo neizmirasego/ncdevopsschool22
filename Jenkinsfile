@@ -25,7 +25,7 @@ pipeline {
                                                   passwordVariable: 'localregistryPassword',
                                                   usernameVariable: 'localregistryUser')])
                   {
-                    sh ('docker login https://ncdevreg.ml:500044 -u $localregistryUser -p $localregistryPassword')
+                    sh ('docker login https://ncdevreg.ml:5000 -u $localregistryUser -p $localregistryPassword')
                     sh ('docker push ncdevreg.ml:5000/application:$GIT_BRANCH-$BUILD_NUMBER')
                   }
            }
