@@ -6,7 +6,7 @@ pipeline {
         stage('Building docker image') {
             steps {
                 echo 'Start building docker image'
-                dir ('NC20') {
+                dir ('NC2022') {
                       sh ('docker build -t ncdevreg.ml:5000/application:$GIT_BRANCH-$BUILD_NUMBER .')
                 }
             }
@@ -25,7 +25,7 @@ pipeline {
                                                   passwordVariable: 'localregistryPassword',
                                                   usernameVariable: 'localregistryUser')])
                   {
-                    sh ('docker login https://ncdevreg.ml:5000 -u $localregistryUser -p $localregistryPassword')
+                    sh ('docker login https://ncdevreg.ml:500044 -u $localregistryUser -p $localregistryPassword')
                     sh ('docker push ncdevreg.ml:5000/application:$GIT_BRANCH-$BUILD_NUMBER')
                   }
            }
