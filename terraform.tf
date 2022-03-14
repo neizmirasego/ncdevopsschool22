@@ -19,6 +19,8 @@ resource "google_compute_instance" "vm_dev1" {
 resource "google_compute_instance" "vm_ci-l2" {
   name         = "ci-l2-from-gh"
   machine_type = "e2-small"
+  zone         = "europe-central2-a"
+  tags         = ["tcp-8080"]
   boot_disk {
     initialize_params {
       size  = "30"
