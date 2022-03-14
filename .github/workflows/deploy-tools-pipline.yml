@@ -39,4 +39,10 @@ jobs:
            ansible all -m ping -u "root"
            ansible-playbook playbook.yml
            
+      # Install Jenkins to GCP      
+    - name:  Install Jenkins to GCP instance
+      run: | 
+           cd "./ansible"
+           ansible-playbook playbook-jenkins.yml
+           
            
