@@ -1,2 +1,5 @@
 [ci-l2]
-root@34.116.167.150
+server1 ansible_host=34.118.122.9 ansible_ssh_user=root
+
+[all:vars]
+ansible_python_interpreter=/usr/bin/python3
