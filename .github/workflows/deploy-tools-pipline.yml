@@ -1,11 +1,15 @@
-name: Deploy to GCP
+name: Deploy tools to GCP
 
 on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
   
+env:
+  ANSIBLE_DIR: "ansible" 
+  KEY_FILENAME: "id_rsa"  
+  
 jobs:
-  build:
+  install-docker:
     runs-on: ubuntu-latest
     
     steps:
@@ -15,34 +19,45 @@ jobs:
    
     # Setup key
     - name: Setup key
-      #run: |
-          #ssh-keygen -f ~/.ssh/key -N ""
-          #cat ~/.ssh/key.pub | ssh root@34.118.122.9 "mkdir -p ~/.ssh && touch ~/.ssh/authorized_keys && chmod -R go= ~/.ssh && cat >> ~/.ssh/authorized_keys"
-
       run: | 
            mkdir "$HOME/.ssh"
-           echo "${{ secrets.KEY }}" > "$HOME/.ssh/id_rsa"
-           chmod 600 "$HOME/.ssh/id_rsa"
+           echo "${{ secrets.KEY }}" > "$HOME/.ssh/${{ KEY_FILENAME }}"
+           chmod 600 "$HOME/.ssh/${{ KEY_FILENAME }}"
            
       # Install Ansible to Github-actions
-    - name: Install Ansible to Github-actions server
-      run: | 
-           sudo apt update
-           sudo apt install software-properties-common
-           sudo add-apt-repository --yes --update ppa:ansible/ansible
-           sudo apt install ansible
+    #- name: Install Ansible to Github-actions server
+      #run: | 
+           #sudo apt update
+           #sudo apt install software-properties-common
+           #sudo add-apt-repository --yes --update ppa:ansible/ansible
+           #sudo apt install ansible
            
      # Install Docker to GCP    
     - name:  Install Docker to GCP instances
       run: | 
-           cd "./ansible"
+           cd "./${{ env.INSTALL_DOCKER_DIR }}"
            ansible all -m ping -u "root"
-           ansible-playbook playbook.yml
+           ansible-playbook playbook.yml -i hosts -l "ci-l2"
+ 
+  install-jenkins:
+    runs-on: ubuntu-latest
+    
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - name: Checkout
+      uses: actions/checkout@v2
+   
+    # Setup key
+    - name: Setup key
+      run: | 
+           mkdir "$HOME/.ssh"
+           echo "${{ secrets.KEY }}" > "$HOME/.ssh/${{ KEY_FILENAME }}"
+           chmod 600 "$HOME/.ssh/${{ KEY_FILENAME }}"
            
       # Install Jenkins to GCP      
     - name:  Install Jenkins to GCP instance
       run: | 
-           cd "./ansible"
+           cd "./${{ env.INSTALL_DOCKER_DIR }}"
            ansible-playbook playbook-jenkins.yml
            
            
