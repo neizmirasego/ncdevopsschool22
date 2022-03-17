@@ -5,8 +5,12 @@ on:
   workflow_dispatch:
   
 env:
-  ANSIBLE_DIR: "ansible" 
+  INSTALL_DOCKER_DIR: "ansible"
+  INSTALL_JENKINS_DIR: "ansible" 
   KEY_FILENAME: "id_rsa"  
+  ANSIBLE_PLAYBOOK_NAME_DOCKER: "playbook.yml"
+  ANSIBLE_PLAYBOOK_NAME_JENKINS: "playbook-jenkins.yml"
+  HOSTS_INSTALL_DOCKER: "ci-l2"
   
 jobs:
   install-docker:
@@ -37,7 +41,7 @@ jobs:
       run: | 
            cd "./${{ env.INSTALL_DOCKER_DIR }}"
            ansible all -m ping -u "root"
-           ansible-playbook playbook.yml -i hosts -l "ci-l2"
+           ansible-playbook ${{ env.ANSIBLE_PLAYBOOK_NAME_DOCKER }} -i hosts -l "${{ env.HOSTS_INSTALL_DOCKER }}"
  
   install-jenkins:
     runs-on: ubuntu-latest
@@ -58,7 +62,7 @@ jobs:
       # Install Jenkins to GCP      
     - name:  Install Jenkins to GCP instance
       run: | 
-           cd "./${{ env.INSTALL_DOCKER_DIR }}"
-           ansible-playbook playbook-jenkins.yml
+           cd "./${{ env.INSTALL_JENKINS_DIR }}"
+           ansible-playbook  ${{ env.ANSIBLE_PLAYBOOK_NAME_JENKINS }}
            
            
