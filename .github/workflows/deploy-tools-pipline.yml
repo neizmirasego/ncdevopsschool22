@@ -10,7 +10,7 @@ env:
   KEY_FILENAME: "id_rsa"  
   ANSIBLE_PLAYBOOK_NAME_DOCKER: "playbook.yml"
   ANSIBLE_PLAYBOOK_NAME_JENKINS: "playbook-jenkins.yml"
-  HOSTS_INSTALL_DOCKER: "ci-l2"
+  HOSTS_INSTALL_DOCKER: "ci-1:dev-1"
   
 jobs:
   install-docker:
