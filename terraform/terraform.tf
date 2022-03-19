@@ -23,7 +23,7 @@ resource "google_compute_instance" "vm_ci_l2" {
   name         = "ci-l2-gh"
   machine_type = var.machine_type
   zone         = var.zone
-  tags         = ["tcp-8080"]
+  tags         = var.main_tags
   boot_disk {
     initialize_params {
       size  = "30"
@@ -44,7 +44,7 @@ resource "google_compute_instance" "registry" {
   name         = "registry"
   machine_type = var.machine_type
   zone         = var.zone
-  tags         = var.tags
+  tags         = var.registry_tags
   boot_disk {
     initialize_params {
       size  = "30"
