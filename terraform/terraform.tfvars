@@ -1,0 +1,5 @@
+zone                  = "us-central1-a"
+machine_type          = "e2-small"
+network               = "default"
+regestry_network_ip   = "10.128.0.5"
+regestry_nat_ip       = "35.225.221.195"
