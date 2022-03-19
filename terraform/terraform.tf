@@ -1,3 +1,11 @@
+data "template_file" "default" {
+  template = "${file("./hosts.sh.tpl")}"
+  vars = {
+    vm_dev1_ip = google_compute_instance.vm_dev1.network_interface.0.access_config.0.nat_ip
+    vm_ci_l2_ip = google_compute_instance.vm_ci_l2.network_interface.0.access_config.0.nat_ip
+  }
+}
+
 #1 VIRTUAL MACHINE
 resource "google_compute_instance" "vm_dev1" {
   name         = "dev1-gh"
@@ -17,6 +25,7 @@ resource "google_compute_instance" "vm_dev1" {
   metadata = {
     ssh-keys = var.ssh_keys
   }
+  metadata_startup_script = "${data.template_file.default.rendered}"
 }
 #2 VIRTUAL MACHINE
 resource "google_compute_instance" "vm_ci_l2" {
