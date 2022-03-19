@@ -1,8 +1,13 @@
+provider "google" {
+  credentials = file("creds.json")
+  project     = "gifted-monitor-338716"
+  region      = "europe-central2"
+  zone        = "europe-central2-a"
+}
 #1 VIRTUAL MACHINE
 resource "google_compute_instance" "vm_dev1" {
-  name         = "dev1-from-gh"
+  name         = "dev1"
   machine_type = "e2-small"
-  zone        = "europe-central2-a"
   boot_disk {
     initialize_params {
       size  = "20"
@@ -17,9 +22,8 @@ resource "google_compute_instance" "vm_dev1" {
 }
 #2 VIRTUAL MACHINE
 resource "google_compute_instance" "vm_ci-l2" {
-  name         = "ci-l2-from-gh"
+  name         = "ci-l2"
   machine_type = "e2-small"
-  zone         = "europe-central2-a"
   tags         = ["tcp-8080"]
   boot_disk {
     initialize_params {
