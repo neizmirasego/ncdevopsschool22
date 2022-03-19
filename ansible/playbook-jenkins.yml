@@ -1,5 +1,5 @@
 ---
- - hosts: ci-l2
+ - hosts: ci
    become: true
    
    tasks:  
