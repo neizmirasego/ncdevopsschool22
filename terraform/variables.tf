@@ -16,20 +16,26 @@ variable "machine_type" {
   default     = "e2-small"
 }
 
-variable "network_ip" {
-  description = "network_ip address."
+variable "registry_network_ip" {
+  description = "regestry network_ip address."
   type        = string
   default     = "10.128.0.5"
 }
 
-variable "tags" {
+variable "main_tags" {
+  description = "tags list"
+  type        = list(string)
+  default     = ["tcp-8080"]
+}
+
+variable "registry_tags" {
   description = "tags list"
   type        = list(string)
   default     = ["tcp-5000"]
 }
 
-variable "nat_ip" {
-  description = "nat_ip address."
+variable "regestry_nat_ip" {
+  description = "regestry nat_ip address."
   type        = string
   default     = "35.225.221.195"
 }
