@@ -1,3 +1,9 @@
+#!/bin/bash
+
+mkdir -p ~/ansible && touch ~/ansible/hosts
+
+cat <<EOF > ~/ansible/hosts
+
 [ci]
 ci-1 ansible_host=34.118.122.9 ansible_ssh_user=lobofffailodrom
 
@@ -9,3 +15,5 @@ reg-server ansible_host=35.225.221.195 ansible_ssh_user=lobofffailodrom
 
 [all:vars]
 ansible_python_interpreter=/usr/bin/python3
+
+EOF
