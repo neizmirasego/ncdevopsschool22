@@ -34,7 +34,7 @@ variable "registry_tags" {
   default     = ["tcp-5000"]
 }
 
-variable "regestry_nat_ip" {
+variable "registry_nat_ip" {
   description = "regestry nat_ip address."
   type        = string
   default     = "35.225.221.195"
