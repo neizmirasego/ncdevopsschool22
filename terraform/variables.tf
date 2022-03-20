@@ -55,5 +55,5 @@ variable "ssh_user" {
 variable "ssh_pub_key_file" {
   description = "ssh_pub_key_file name"
   type        = string
-  default     = "key.pub"
+  default     = "key"
 }
