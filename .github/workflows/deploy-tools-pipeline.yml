@@ -1,7 +1,7 @@
 name: Deploy tools to GCP
 
 on:
-  # Allows you to run this workflow manually from the Actions tab
+  # run this workflow manually from the Actions tab
   workflow_dispatch:
   
 env:
@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      # Checks-out repository under $GITHUB_WORKSPACE, so the job can access it
     - name: Checkout
       uses: actions/checkout@v2
    
@@ -32,7 +32,6 @@ jobs:
     - name:  Install Docker to GCP instances
       run: | 
            cd "./${{ env.INSTALL_DOCKER_DIR }}"
-           ansible all -m ping -u "root"
            ansible-playbook ${{ env.ANSIBLE_PLAYBOOK_NAME_DOCKER }} -i hosts -l "${{ env.HOSTS_INSTALL_DOCKER }}"
  
   install-jenkins:
@@ -40,7 +39,7 @@ jobs:
     needs: install-docker
     
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      # Checks-out repository under $GITHUB_WORKSPACE, so the job can access it
     - name: Checkout
       uses: actions/checkout@v2
    
