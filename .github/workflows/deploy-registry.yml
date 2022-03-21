@@ -25,8 +25,8 @@ jobs:
     - name: Setup key        
       run: | 
            mkdir "$HOME/.ssh"
-           echo "${{ secrets.KEY }}" > "$HOME/.ssh/${{ env.KEY_FILENAME }} "
-           chmod 600 "$HOME/.ssh/${{ env.KEY_FILENAME }} "
+           echo "${{ secrets.KEY }}" > "$HOME/.ssh/${{ env.KEY_FILENAME }}"
+           chmod 600 "$HOME/.ssh/${{ env.KEY_FILENAME }}"
     
     - name:  Install Docker to instance using Ansible
       run: |      
@@ -45,8 +45,8 @@ jobs:
     - name: Setup key        
       run: | 
            mkdir "$HOME/.ssh"
-           echo "${{ secrets.KEY }}" > "$HOME/.ssh/${{ env.KEY_FILENAME }} "
-           chmod 600 "$HOME/.ssh/${{ env.KEY_FILENAME }} "
+           echo "${{ secrets.KEY }}" > "$HOME/.ssh/${{ env.KEY_FILENAME }}"
+           chmod 600 "$HOME/.ssh/${{ env.KEY_FILENAME }}"
            
     - name:  Install Registry server using Ansible
       run: | 
