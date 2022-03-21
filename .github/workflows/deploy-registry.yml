@@ -14,7 +14,7 @@ env:
   HOSTS_INSTALL_DOCKER: "reg-server"
   
 jobs:
-  docker:
+  install-docker:
     runs-on: ubuntu-latest
     steps:
     
@@ -33,9 +33,9 @@ jobs:
            cd "./${{ env.INSTALL_DOCKER_DIR }}"
            ansible-playbook ${{ env.ANSIBLE_PLAYBOOK_NAME_DOCKER }} -i hosts -l "${{ env.HOSTS_INSTALL_DOCKER }}"
 
-  registry:
+  install-registry:
     runs-on: ubuntu-latest
-    needs: docker
+    needs: install-docker
     steps:
     
     - name: Checkout
