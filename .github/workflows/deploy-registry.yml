@@ -1,0 +1,54 @@
+name: Deploy registry server
+
+on:
+  # Run this workflow manually from the Actions tab
+  workflow_dispatch:
+  
+env:
+  INSTALL_DOCKER_DIR: "ansible"
+  INSTALL_REGISTRY_DIR: "ansible-install-registry"
+  INSTALL_REGISTRY_ROLE: "install-registry-with-cert"
+  KEY_FILENAME: "id_rsa"
+  ANSIBLE_PLAYBOOK_NAME_DOCKER: "playbook.yml"
+  ANSIBLE_PLAYBOOK_NAME_REGISTRY: "playbook-registry.yml"
+  HOSTS_INSTALL_DOCKER: "reg-server"
+  
+jobs:
+  install-docker:
+    runs-on: ubuntu-latest
+    steps:
+    
+    - name: Checkout
+      uses: actions/checkout@v2    
+      
+      # Setup key
+    - name: Setup key        
+      run: | 
+           mkdir "$HOME/.ssh"
+           echo "${{ secrets.KEY }}" > "$HOME/.ssh/${{ env.KEY_FILENAME }}"
+           chmod 600 "$HOME/.ssh/${{ env.KEY_FILENAME }}"
+    
+    - name:  Install Docker to instance using Ansible
+      run: |      
+           cd "./${{ env.INSTALL_DOCKER_DIR }}"
+           ansible-playbook ${{ env.ANSIBLE_PLAYBOOK_NAME_DOCKER }} -i hosts -l "${{ env.HOSTS_INSTALL_DOCKER }}"
+
+  install-registry:
+    runs-on: ubuntu-latest
+    needs: install-docker
+    steps:
+    
+    - name: Checkout
+      uses: actions/checkout@v2    
+      
+      # Setup key
+    - name: Setup key        
+      run: | 
+           mkdir "$HOME/.ssh"
+           echo "${{ secrets.KEY }}" > "$HOME/.ssh/${{ env.KEY_FILENAME }}"
+           chmod 600 "$HOME/.ssh/${{ env.KEY_FILENAME }}"
+           
+    - name:  Install Registry server using Ansible
+      run: | 
+           cd "./${{ env.INSTALL_REGISTRY_DIR }}"      
+           ansible-playbook ${{ env.ANSIBLE_PLAYBOOK_NAME_REGISTRY }} --tags "${{ env.INSTALL_REGISTRY_ROLE }}"

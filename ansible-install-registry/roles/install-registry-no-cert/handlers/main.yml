@@ -1,0 +1,7 @@
+---
+# handlers file for install-registry
+
+- name: RELOAD DOCKER
+  service: 
+    name: docker 
+    state: reloaded

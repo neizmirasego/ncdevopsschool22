@@ -1,0 +1,14 @@
+---
+ - name: INSTALL DOCKER REGISTRY
+   hosts: all
+   become: true
+   gather_facts: no
+
+   
+   roles:
+     - role: install-registry-with-cert
+       tags: install-registry-with-cert
+       
+     - role: install-registry-no-cert
+       tags: install-registry-no-cert
+

@@ -1,0 +1,7 @@
+---
+ - hosts: ci
+   become: false
+   
+   tasks:  
+   - name: RUN DOCKER-COMPOSE FOR INSTALL JENKINS
+     shell: git clone https://github.com/loboff1/ncdevopsschool22.git && cd ~/ncdevopsschool22/jenkins-install && sudo docker-compose up -d
