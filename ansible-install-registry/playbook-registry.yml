@@ -6,7 +6,9 @@
 
    
    roles:
+     - role: install-registry-with-cert
+       tags: install-registry-with-cert
+       
      - role: install-registry-no-cert
-     
-     #- role: install-registry-with-cert
+       tags: install-registry-no-cert
 

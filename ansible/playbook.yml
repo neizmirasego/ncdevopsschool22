@@ -1,5 +1,5 @@
 ---
- - hosts: google
+ - hosts: all
    become: true
    roles:
      - role: role-docker-install

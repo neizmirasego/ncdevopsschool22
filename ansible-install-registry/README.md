@@ -14,7 +14,7 @@ Running encrypted playbook
 
 Command for running at command line:
 
-    ansible-playbook playbook-roles.yaml --ask-vault-pass
+    ansible-playbook playbook-registry.yml --ask-vault-pass
 
 If your host have ssl certificate run role "install-registry-with-cert"
 
