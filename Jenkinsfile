@@ -37,6 +37,11 @@ pipeline {
          	           }
                    }
          }
+        stage('Check Git') {
+            steps {
+                git branch: 'ncdev22-18', url: "git@github.com:neizmirasego/ncdevopsschool22.git"
+            }
+        }
          stage('deploy'){
            steps {
              dir ('flask_webapp') {
