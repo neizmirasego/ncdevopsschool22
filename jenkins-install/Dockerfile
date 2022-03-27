@@ -13,6 +13,7 @@ RUN apt-get update -qq && \
     apt-get install -qqy docker-ce && \
     usermod -aG docker jenkins && \
     chown -R jenkins:jenkins $JENKINS_HOME/
+    pip install docker-compose
     
 USER jenkins
 VOLUME /jenkins_configs
