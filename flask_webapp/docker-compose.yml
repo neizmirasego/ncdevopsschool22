@@ -5,7 +5,7 @@ services:
   webapp:
     container_name: flask
     build: .
-    image: ncdevreg.ml:5000/flask_webap:$GIT_BRANCH-$BUILD_NUMBER
+    image: ncdevreg.ml:5000/flask_webapp:$GIT_BRANCH-$BUILD_NUMBER
     user: root
     restart: always
     ports:
