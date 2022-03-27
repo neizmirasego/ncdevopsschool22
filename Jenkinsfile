@@ -6,8 +6,8 @@ pipeline {
         stage('Building docker image') {
             steps {
                 echo 'Start building docker image'
-                dir ('NC2022') {
-                      sh ('docker build -t ncdevreg.ml:5000/application:$GIT_BRANCH-$BUILD_NUMBER .')
+                dir ('flask_webapp') {
+                      sh ('docker build -t ncdevreg.ml:5000/flask_webapp:$GIT_BRANCH-$BUILD_NUMBER .')
                 }
             }
             post {
@@ -26,7 +26,7 @@ pipeline {
                                                   usernameVariable: 'localregistryUser')])
                   {
                     sh ('docker login https://ncdevreg.ml:5000 -u $localregistryUser -p $localregistryPassword')
-                    sh ('docker push ncdevreg.ml:5000/application:$GIT_BRANCH-$BUILD_NUMBER')
+                    sh ('docker push ncdevreg.ml:5000/flask_webapp:$GIT_BRANCH-$BUILD_NUMBER')
                   }
            }
            post {
@@ -36,6 +36,13 @@ pipeline {
                         }
          	           }
                    }
+         }
+         stage('deploy'){
+           steps {
+             dir ('flask_webapp') {
+                   sh ('docker compose up -d --build')
+             }
+           }
          }
    }
    post {
