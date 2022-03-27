@@ -40,7 +40,7 @@ pipeline {
          stage('deploy'){
            steps {
              dir ('flask_webapp') {
-                   sh ('docker compose up -d --build')
+                   sh ('docker-compose up -d')
              }
            }
          }
