@@ -3,8 +3,10 @@ env.STAGEPUSH = ''
 pipeline {
     agent any
     stages {
-        stage('Checkout') {
-            checkout scm
+        stage('Checkout code') {
+            steps {
+                checkout scm
+            }
         } 
         stage('Building docker image') {
             steps {
