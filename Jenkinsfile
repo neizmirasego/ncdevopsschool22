@@ -3,6 +3,9 @@ env.STAGEPUSH = ''
 pipeline {
     agent any
     stages {
+        stage('Checkout') {
+            checkout scm
+        } 
         stage('Building docker image') {
             steps {
                 echo 'Start building docker image'
