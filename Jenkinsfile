@@ -44,12 +44,8 @@ pipeline {
          }
          stage('deploy'){
            steps {
-             git branch: 'ncdev22-18', url: 'https://github.com/neizmirasego/ncdevopsschool22'
              dir ('flask_webapp') {
-                 script {
-                        sh ('docker-compose build')
                         sh ('docker-compose up -d')
-                 }
              }
            }
          }
