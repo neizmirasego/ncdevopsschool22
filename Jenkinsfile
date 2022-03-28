@@ -46,10 +46,12 @@ pipeline {
            steps {
              dir ('flask_webapp') {
                  script {
-                   sh ('mkdir build')
-                   sh ('cp ./* ./build')
-                   sh ('docker-compose build')
-                   sh ('docker-compose up -d')
+                     sh """
+                        mkdir build
+                        cp -R ./flask_webapp/* ./build
+                        cd build
+                        sh ('docker-compose build')
+                        sh ('docker-compose up -d')"""
                  }
              }
            }
