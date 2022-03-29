@@ -7,7 +7,7 @@ pipeline {
             steps {
                 checkout scm
             }
-        } 
+        }
         stage('Building docker image') {
             steps {
                 echo 'Start building docker image'
@@ -45,7 +45,8 @@ pipeline {
          stage('deploy'){
            steps {
              dir ('flask_webapp') {
-                        sh ('docker-compose up -d')
+                        //sh ('docker-compose up -d')
+                        sh ('docker stack deploy')
              }
            }
          }
