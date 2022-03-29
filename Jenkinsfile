@@ -46,7 +46,7 @@ pipeline {
            steps {
              dir ('flask_webapp') {
                         //sh ('docker-compose up -d')
-                        sh ('docker stack deploy')
+                        sh ('docker stack deploy --compose-file docker-compose.yml')
              }
            }
          }
