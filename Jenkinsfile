@@ -44,9 +44,14 @@ pipeline {
          }
          stage('deploy'){
            steps {
-             dir ('flask_webapp') {
+             withCredentials([usernamePassword(credentialsId: 'localregistry',
+                                               passwordVariable: 'localregistryPassword',
+                                               usernameVariable: 'localregistryUser')])
+                {
+                  dir ('flask_webapp') {
                         //sh ('docker-compose up -d')
                         sh ('docker stack deploy --compose-file docker-compose.yml flask-stack')
+               }
              }
            }
          }
