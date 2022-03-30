@@ -13,9 +13,13 @@ services:
     #volumes:
       #- .:/app
     networks:
-      - network
+      - flask-network
+
+networks:
+  flask-network:
+  
 
 #networks:
- # network:
-  #  driver: bridge
+#  network:
+#    driver: bridge
   
