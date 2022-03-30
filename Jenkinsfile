@@ -12,7 +12,7 @@ pipeline {
             steps {
                 echo 'Start building docker image'
                 dir ('flask_webapp') {
-                      sh ('docker build -t ncdevreg.ml:5000/flask_webapp:$GIT_BRANCH-$BUILD_NUMBER .')
+                      sh ('docker build -t ncdevreg.ml:5000/flask_webapp-$GIT_BRANCH:$BUILD_NUMBER .')
                 }
             }
             post {
@@ -31,7 +31,7 @@ pipeline {
                                                   usernameVariable: 'localregistryUser')])
                   {
                     sh ('docker login https://ncdevreg.ml:5000 -u $localregistryUser -p $localregistryPassword')
-                    sh ('docker push ncdevreg.ml:5000/flask_webapp:$GIT_BRANCH-$BUILD_NUMBER')
+                    sh ('docker push ncdevreg.ml:5000/flask_webapp-$GIT_BRANCH:$BUILD_NUMBER')
                   }
            }
            post {
@@ -50,7 +50,7 @@ pipeline {
                 {
                   dir ('flask_webapp') {
                         //sh ('docker-compose up -d')
-                        sh ('docker stack deploy --compose-file docker-compose.yml flask-stack')
+                        sh ('docker stack deploy --compose-file docker-compose.yml flaskk-stack')
                }
              }
            }
