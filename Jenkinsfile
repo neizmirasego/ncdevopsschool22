@@ -49,17 +49,15 @@ pipeline {
                                                usernameVariable: 'localregistryUser')])
                 {
                   dir ('flask_webapp') {
-                  	sh '''
-                  		SERVICES=$(docker service ls --filter name=cd-demo --quiet | wc -l)
-          			if [[ "$SERVICES" -eq 0 ]]; then
-            				docker stack deploy --compose-file docker-compose.yml flask-stack --with-registry-auth
+                  	script {
+                  		SERVICES=$(docker service ls --filter name=flaskkk-stack_webapp --quiet | wc -l)
+          			if [[ "$SERVICES" -eq 0 ]] {
+            				docker stack deploy --compose-file docker-compose.yml flask-stack --with-registry-auth}
           			else
-            				docker service update --image ncdevreg.ml:5000/flask_webapp-$GIT_BRANCH:$BUILD_NUMBER flask-stack
-          			fi
-                  	'''
+            				{docker service update --image ncdevreg.ml:5000/flask_webapp-$GIT_BRANCH:$BUILD_NUMBER flaskkk-stack_webapp}
                         //sh ('docker-compose up -d')
                         //sh ('docker stack deploy --compose-file docker-compose.yml flaskkk-stack --with-registry-auth')
-               }
+               }}
              }
            }
          }
