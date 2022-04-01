@@ -39,11 +39,8 @@ pipeline {
          }
          stage('deploy'){
            steps {
-             withCredentials([usernamePassword(credentialsId: 'localregistry',
-                                               passwordVariable: 'localregistryPassword',
-                                               usernameVariable: 'localregistryUser')])
-                {
-                        sh ('docker stack deploy --compose-file docker-compose.yml flaskkk-stack --with-registry-auth')
+                {dir ('flask_webapp') {
+                        sh ('docker stack deploy --compose-file docker-compose.yml flask-stack --with-registry-auth') }
 
                 }
            }
