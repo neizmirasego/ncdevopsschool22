@@ -3,11 +3,6 @@ env.STAGEPUSH = ''
 pipeline {
     agent any
     stages {
-        stage('Checkout code') {
-            steps {
-                checkout scm
-            }
-        }
         stage('Building docker image') {
             steps {
                 echo 'Start building docker image'
@@ -48,20 +43,31 @@ pipeline {
                                                passwordVariable: 'localregistryPassword',
                                                usernameVariable: 'localregistryUser')])
                 {
-                  
-                  	script {
-                  		env.SERVICES=sh("docker service ls --filter name=flaskkk-stack_webapp --quiet | wc -l")
-                        if ( sh('${env.SERVICES} -eq 0 ')) {
-                            dir ('flask_webapp') {
-            				    sh('docker stack deploy --compose-file docker-compose.yml flask-stack --with-registry-auth')}}
-          			else
-            				{sh("docker service update --image ncdevreg.ml:5000/flask_webapp-$GIT_BRANCH:$BUILD_NUMBER flaskkk-stack_webapp")}
-                        //sh ('docker-compose up -d')
-                        //sh ('docker stack deploy --compose-file docker-compose.yml flaskkk-stack --with-registry-auth')
-               }
-             }
+                        sh ('docker stack deploy --compose-file docker-compose.yml flaskkk-stack --with-registry-auth')
+
+                }
            }
          }
    }
+   post {
+     success {
+        withCredentials([string(credentialsId: 'botsecret', variable: 'TOKEN'),
+        		  string(credentialsId: 'idchatncdev22', variable: 'CHAT_ID')])
+            {
+                sh  ("""
+                        curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${CHAT_ID} -d parse_mode=markdown -d text='*$JOB_NAME* : RESULT *Branch*: $GIT_BRANCH *Build* : OK'
+                    """)
+            }
+     }
 
+     failure {
+        withCredentials([string(credentialsId: 'botsecret', variable: 'TOKEN'),
+        		  string(credentialsId: 'idchatncdev22', variable: 'CHAT_ID')])
+            {
+               sh  ("""
+                       curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${CHAT_ID} -d parse_mode=markdown -d text='*$JOB_NAME* : RESULT  *Branch*: $GIT_BRANCH *Build* : NOT ok: ${env.STAGEBUILD} ${env.STAGEPUSH}'
+                    """)
+            }
+       }
+   }
 }
