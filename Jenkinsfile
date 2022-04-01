@@ -54,7 +54,7 @@ pipeline {
           			if ( sh('$SERVICES -eq 0 ')) {
             				docker stack deploy --compose-file docker-compose.yml flask-stack --with-registry-auth}
           			else
-            				{docker service update --image ncdevreg.ml:5000/flask_webapp-$GIT_BRANCH:$BUILD_NUMBER flaskkk-stack_webapp}
+            				{sh('docker service update --image ncdevreg.ml:5000/flask_webapp-$GIT_BRANCH:$BUILD_NUMBER flaskkk-stack_webapp')}
                         //sh ('docker-compose up -d')
                         //sh ('docker stack deploy --compose-file docker-compose.yml flaskkk-stack --with-registry-auth')
                }}
