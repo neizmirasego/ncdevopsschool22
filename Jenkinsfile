@@ -50,7 +50,7 @@ pipeline {
                 {
                   dir ('flask_webapp') {
                   	script {
-                  		SERVICES=$(docker service ls --filter name=flaskkk-stack_webapp --quiet | wc -l)
+                  		env.SERVICES=sh("docker service ls --filter name=flaskkk-stack_webapp --quiet | wc -l")
           			if [[ "$SERVICES" -eq 0 ]] {
             				docker stack deploy --compose-file docker-compose.yml flask-stack --with-registry-auth}
           			else
