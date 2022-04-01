@@ -50,7 +50,7 @@ pipeline {
                 {
                   dir ('flask_webapp') {
                         //sh ('docker-compose up -d')
-                        sh ('docker stack deploy --compose-file docker-compose.yml flaskk-stack')
+                        sh ('docker stack deploy --compose-file docker-compose.yml flaskkk-stack --with-registry-auth')
                }
              }
            }
