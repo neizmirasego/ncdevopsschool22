@@ -52,7 +52,7 @@ pipeline {
                   	script {
                   		env.SERVICES=sh("docker service ls --filter name=flaskkk-stack_webapp --quiet | wc -l")
                         if ( sh('${env.SERVICES} -eq 0 ')) {
-            				docker stack deploy --compose-file docker-compose.yml flask-stack --with-registry-auth}
+            				sh('docker stack deploy --compose-file docker-compose.yml flask-stack --with-registry-auth')}
           			else
             				{sh('docker service update --image ncdevreg.ml:5000/flask_webapp-$GIT_BRANCH:$BUILD_NUMBER flaskkk-stack_webapp')}
                         //sh ('docker-compose up -d')
