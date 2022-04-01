@@ -49,32 +49,20 @@ pipeline {
                                                usernameVariable: 'localregistryUser')])
                 {
                   dir ('flask_webapp') {
+                  	sh '''
+                  		SERVICES=$(docker service ls --filter name=cd-demo --quiet | wc -l)
+          			if [[ "$SERVICES" -eq 0 ]]; then
+            				docker stack deploy --compose-file docker-compose.yml flask-stack --with-registry-auth
+          			else
+            				docker service update --image ncdevreg.ml:5000/flask_webapp-$GIT_BRANCH:$BUILD_NUMBER flask-stack
+          			fi
+                  	'''
                         //sh ('docker-compose up -d')
-                        sh ('docker stack deploy --compose-file docker-compose.yml flaskkk-stack --with-registry-auth')
+                        //sh ('docker stack deploy --compose-file docker-compose.yml flaskkk-stack --with-registry-auth')
                }
              }
            }
          }
    }
-   post {
-     success {
-        withCredentials([string(credentialsId: 'botsecret', variable: 'TOKEN'),
-        		  string(credentialsId: 'idchatncdev22', variable: 'CHAT_ID')])
-            {
-                sh  ("""
-                        curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${CHAT_ID} -d parse_mode=markdown -d text='*$JOB_NAME* : RESULT *Branch*: $GIT_BRANCH *Build* : OK'
-                    """)
-            }
-     }
 
-     failure {
-        withCredentials([string(credentialsId: 'botsecret', variable: 'TOKEN'),
-        		  string(credentialsId: 'idchatncdev22', variable: 'CHAT_ID')])
-            {
-               sh  ("""
-                       curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${CHAT_ID} -d parse_mode=markdown -d text='*$JOB_NAME* : RESULT  *Branch*: $GIT_BRANCH *Build* : NOT ok: ${env.STAGEBUILD} ${env.STAGEPUSH}'
-                    """)
-            }
-       }
-   }
 }
