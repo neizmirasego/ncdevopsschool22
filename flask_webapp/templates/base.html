@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <title>{% block title %} {% endblock %}</title>
+    <title>{% block title %} Blog - NC DevOps School  {% endblock %}</title>
   </head>
   <body>
       <nav class="navbar navbar-expand-md navbar-dark bg-dark">
@@ -27,6 +27,14 @@
             </ul>
         </div>
       </nav>
+        <div class="jumbotron">
+        <div class="container">
+      <h1 class="display-5">Blog - NC DevOps School </h1>
+      <p>This is a demo application for the NC DevOps school project. It allows you to show the work of the CI \ CD process (building a docker image, push to the registry server, deployment to the VM instances of Google Cloud).</p>
+  </div>  
+  </div>    
+  
+
     <div class="container">
         {% for message in get_flashed_messages() %}
             <div class="alert alert-danger">{{ message }}</div>
@@ -41,4 +49,3 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   </body>
 </html>
-
