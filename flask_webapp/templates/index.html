@@ -1,24 +1,25 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>{% block title %} Blog1 - NC DevOps School {% endblock %}</h1>
-    <br>
+
     {% for post in posts %}
-  <div class="row">
-    <div class="col-md-8 col-xs-12">
+   <div class="row jumbotron bg-light shadow-sm">
+    <div class="col-md-8 col-xs-12 ">
+        <a href="{{ url_for('edit', id=post['id']) }}">
+            <span class="badge badge-warning text-right">Edit</span>
+        </a>
+        <small class="text-muted">{{ post['created'] }}</small>
         <a href="{{ url_for('post', post_id=post['id']) }}">
             <h3>{{ post['title'] }}</h3>
         </a>
-
-        <span class="badge badge-primary">{{ post['created'] }}</span>
-        <a href="{{ url_for('edit', id=post['id']) }}">
-            <span class="badge badge-warning">Edit</span>
-        </a>
+        <br>  
+        <p><a class="btn btn btn-secondary" href="{{ url_for('post', post_id=post['id']) }}" role="button">View details »</a></p>
      </div>
+       
     <div class="col-md-4 col-xs-12">
-   	<img src="{{ post['image'] }}" class="img-fluid img-thumbnail rounded shadow">
+   	<img src="{{ post['image'] }}" class="img-fluid img-thumbnail rounded">
     </div>
  </div>
-        <hr>
+        
     {% endfor %}
 {% endblock %}
