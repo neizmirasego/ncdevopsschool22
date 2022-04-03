@@ -11,7 +11,7 @@ services:
     deploy:
       placement:
         constraints: [node.role == manager]
-    network:
+    networks:
       - flask-network
   webapp:
     #container_name: flask
