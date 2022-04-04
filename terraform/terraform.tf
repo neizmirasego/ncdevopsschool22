@@ -74,11 +74,3 @@ output "vm_dev1_ip" {
 output "vm_ci_l2_ip" {
   value = google_compute_instance.vm_ci_l2.network_interface.0.access_config.0.nat_ip
 }
-
-data "template_file" "default" {
-  template = "${file("./hosts.sh.tpl")}"
-  vars = {
-    vm_dev1_ip = "test"
-    vm_ci_l2_ip = "google_compute_instance.vm_ci_l2.network_interface.0.access_config.0.nat_ip"
-  }
-}
