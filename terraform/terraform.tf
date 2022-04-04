@@ -17,7 +17,6 @@ resource "google_compute_instance" "vm_dev1" {
   metadata = {
     ssh-keys = "${var.ssh_user}:${file(var.ssh_pub_key_file)}"
   }
-  metadata_startup_script = "${data.template_file.default.rendered}"
 }
 #2 VIRTUAL MACHINE
 resource "google_compute_instance" "vm_ci_l2" {
@@ -39,7 +38,6 @@ resource "google_compute_instance" "vm_ci_l2" {
   metadata = {
     ssh-keys = "${var.ssh_user}:${file(var.ssh_pub_key_file)}"
   }
-  metadata_startup_script = "${data.template_file.default.rendered}"
 }
 #3 VIRTUAL MACHINE
 resource "google_compute_instance" "registry" {
