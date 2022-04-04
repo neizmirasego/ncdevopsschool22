@@ -1,4 +1,4 @@
-name: Deploy tools to GCP
+name: Deploy tools to GCP VMs
 
 on:
   # run this workflow manually from the Actions tab
@@ -25,8 +25,8 @@ jobs:
     - name: Setup key
       run: | 
            mkdir "$HOME/.ssh"
-           echo "${{ secrets.KEY }}" > "$HOME/.ssh/${{ KEY_FILENAME }}"
-           chmod 600 "$HOME/.ssh/${{ KEY_FILENAME }}"
+           echo "${{ secrets.KEY }}" > "$HOME/.ssh/${{ env.KEY_FILENAME }}"
+           chmod 600 "$HOME/.ssh/${{ env.KEY_FILENAME }}"
  
      # Install Docker to GCP    
     - name:  Install Docker to GCP instances
@@ -47,8 +47,8 @@ jobs:
     - name: Setup key
       run: | 
            mkdir "$HOME/.ssh"
-           echo "${{ secrets.KEY }}" > "$HOME/.ssh/${{ KEY_FILENAME }}"
-           chmod 600 "$HOME/.ssh/${{ KEY_FILENAME }}"
+           echo "${{ secrets.KEY }}" > "$HOME/.ssh/${{ env.KEY_FILENAME }}"
+           chmod 600 "$HOME/.ssh/${{ env.KEY_FILENAME }}"
            
       # Install Jenkins to GCP      
     - name:  Install Jenkins to GCP instance
