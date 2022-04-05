@@ -1,6 +1,5 @@
 ---
-# tasks file for install_apache2
- 
+# tasks file for install registry server with SSL certificate
 
 - name: CREATE NEW DIR FOR REGISTRY
   file:
@@ -20,8 +19,7 @@
   with_fileglob: 
     - files/domain.key
     - files/domain.crt
-
-
+    
 - name: INSTALL HTPASSWD
   apt: 
     name: "{{ packages }}" 
