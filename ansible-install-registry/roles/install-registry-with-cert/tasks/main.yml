@@ -17,8 +17,8 @@
     src: "{{ item }}" 
     dest: "./docker-registry/auth"
   with_fileglob: 
-    - files/domain.key
-    - files/domain.crt
+    - files/"{{ crt_filename }}"
+    - files/"{{ key_filename }}"
     
 - name: INSTALL HTPASSWD
   apt: 
