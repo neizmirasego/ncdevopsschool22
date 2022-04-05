@@ -1,7 +1,6 @@
 ---
-# tasks file for install_apache2
+# tasks file for install registry server without SSL certificate
  
-
 - name: CREATE NEW DIR FOR REGISTRY
   file:
     path: "{{ item }}" 
