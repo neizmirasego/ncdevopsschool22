@@ -7,6 +7,10 @@ host_registry: "10.128.0.5"
 
 port_registry: "5000"
 
+crt_filename: "public.pem"
+
+key_filename: "private.key"
+
 user_registry: "admin"
 
 pass_registry: !vault |
