@@ -36,8 +36,8 @@
  
 - name: COPY DOCKER-COMPOSE FILE TO SERVER
   template:
-    src: "files/docker-compose.yml"
-    dest: "./docker-registry"
+    src: "files/docker-compose.yml.j2"
+    dest: "./docker-registry/docker-compose.yml"
 
 - name: RUN DOCKER-COMPOSE
   shell: cd ./docker-registry && docker-compose up -d
