@@ -4,8 +4,8 @@ registry:
   ports:
     - {{ port_registry }}:5000
   environment:
-    REGISTRY_HTTP_TLS_CERTIFICATE: /certs/public.pem
-    REGISTRY_HTTP_TLS_KEY: /certs/private.key
+    REGISTRY_HTTP_TLS_CERTIFICATE: /certs/{{ crt_filename }}
+    REGISTRY_HTTP_TLS_KEY: /certs/{{ key_filename }}
     REGISTRY_AUTH: htpasswd
     REGISTRY_AUTH_HTPASSWD_PATH: /auth/htpasswd
     REGISTRY_AUTH_HTPASSWD_REALM: Registry Realm
