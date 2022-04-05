@@ -5,6 +5,12 @@ user: "lobofffailodrom"
 
 domain: "ncdevreg.ml"
 
+port_registry: "5000"
+
+crt_filename: "domain.crt"
+
+key_filename: "domain.key"
+
 user_registry: "admin"
 
 pass_registry: !vault |
