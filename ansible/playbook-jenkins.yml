@@ -4,4 +4,4 @@
    
    tasks:  
    - name: RUN DOCKER-COMPOSE FOR INSTALL JENKINS
-     shell: git clone https://github.com/loboff1/ncdevopsschool22.git && cd ~/ncdevopsschool22/jenkins-install && sudo docker-compose up -d
+     shell: git clone https://github.com/neizmirasego/ncdevopsschool22.git && cd ~/ncdevopsschool22/jenkins-install && sudo docker-compose up -d
