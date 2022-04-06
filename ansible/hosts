@@ -1,5 +1,5 @@
 [ci]
-ci-1 ansible_host=35.239.27.113 ansible_ssh_user=lobofffailodrom
+ci-1 ansible_host=34.142.96.161 ansible_ssh_user=lobofffailodrom
 
 [dev]
 dev-1 ansible_host=34.134.207.21 ansible_ssh_user=lobofffailodrom
