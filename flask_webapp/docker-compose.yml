@@ -10,8 +10,8 @@ services:
     deploy:
       placement:
         constraints: [node.role == manager]
-    networks:
-      - flask-network
+    #networks:
+      #- flask-network
   webapp:
     image: ncdevreg.ml:5000/flask_webapp-$GIT_BRANCH:$BUILD_NUMBER
     user: root
@@ -26,8 +26,8 @@ services:
       restart_policy:
         condition: on-failure
         delay: 5s
-    networks:
-      - flask-network
+    #networks:
+      #- flask-network
 
 networks:
   flask-network:
