@@ -29,6 +29,6 @@ services:
     #networks:
       #- flask-network
 
-networks:
-  flask-network:
+#networks:
+  #flask-network:
   
