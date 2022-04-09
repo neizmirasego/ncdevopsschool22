@@ -15,11 +15,11 @@ services:
   webapp:
     image: ncdevreg.ml:5000/flask_webapp-$GIT_BRANCH:$BUILD_NUMBER
     user: root
-    restart: always
+    #restart: always
     ports:
-      - '5000:8080'
+      - "5000:80"
     deploy:
-      replicas: 3
+      replicas: 2
       update_config:
         parallelism: 2
         delay: 10s
