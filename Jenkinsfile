@@ -41,7 +41,7 @@ pipeline {
          stage('deploy'){
            steps {
                 dir ('flask_webapp') {
-                        sh ('docker stack deploy --compose-file docker-compose.yml stack-$GIT_BRANCH --with-registry-auth') }
+                        sh ('docker stack deploy --compose-file docker-compose.yml stack-app --with-registry-auth') }
 
                 }
            post {
