@@ -1,15 +1,15 @@
 version: '3.7'
 
 services:
-  #vis:
-    #image: dockersamples/visualizer
-    #ports:
-      #- "5001:8080"
-    #volumes:
-      #- "/var/run/docker.sock:/var/run/docker.sock"
-    #deploy:
-      #placement:
-        #constraints: [node.role == manager]
+  vis:
+    image: dockersamples/visualizer
+    ports:
+      - "5001:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    deploy:
+      placement:
+        constraints: [node.role == manager]
     #networks:
       #- flask-network
   webapp:
@@ -17,7 +17,7 @@ services:
     user: root
     #restart: always
     ports:
-      - "5000:8080"
+      - "5000:80"
     deploy:
       replicas: 2
       update_config:
