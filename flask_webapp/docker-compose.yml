@@ -14,7 +14,7 @@ services:
       #- flask-network
   #webapp:
     image: ncdevreg.ml:5000/flask_webapp-$GIT_BRANCH:$BUILD_NUMBER
-    user: root
+    #user: root
     #restart: always
     ports:
       - 5000:80
