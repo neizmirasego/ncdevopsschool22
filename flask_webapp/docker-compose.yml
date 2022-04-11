@@ -12,17 +12,17 @@ services:
         #constraints: [node.role == manager]
     #networks:
       #- flask-network
-  #webapp:
-  image: ncdevreg.ml:5000/flask_webapp-$GIT_BRANCH:$BUILD_NUMBER
+  webapp:
+    image: ncdevreg.ml:5000/flask_webapp-$GIT_BRANCH:$BUILD_NUMBER
     #user: root
     #restart: always
-  ports:
-    - "5000:80"
-  deploy:
-    replicas: 2
-    update_config:
+    ports:
+      - "5000:80"
+    deploy:
+      replicas: 2
+      update_config:
         #parallelism: 2
-      delay: 10s
+        delay: 10s
       #restart_policy:
         #condition: on-failure
         #delay: 5s
