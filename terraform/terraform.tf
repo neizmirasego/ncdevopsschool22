@@ -1,5 +1,4 @@
 # CI & DEV VIRTUAL MACHINES
-
 resource "google_compute_address" "static" {
   for_each  = var.vm_name
   name      = "${each.key}-ipv4"
