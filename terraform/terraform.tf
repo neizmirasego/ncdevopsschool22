@@ -1,12 +1,12 @@
 # CI & DEV VIRTUAL MACHINES
 resource "google_compute_address" "static" {
-  count = length(var.vm_name)
-  name      =  var.vm_name[count.index]
+  count     = length(var.vm_name)
+  name      =  "${var.vm_name[count.index]}-gh"
   region    =  var.region
 }
 resource "google_compute_instance" "ncdev" {
-  count = length(var.vm_name)
-  name          = var.vm_name[count.index]
+  count         = length(var.vm_name)
+  name          = "${var.vm_name[count.index]}-gh"
   machine_type  = var.machine_type
   zone          = var.zone
   tags          = var.main_tags
