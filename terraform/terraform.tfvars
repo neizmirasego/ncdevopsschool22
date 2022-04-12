@@ -1,3 +1,8 @@
+vm_name = [ 
+    "ci-l2",
+    "dev1"
+]
+region                = "europe-west2" 
 zone                  = "europe-west2-a"
 machine_type          = "e2-small"
 network               = "default"
