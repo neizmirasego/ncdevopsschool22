@@ -1,7 +1,7 @@
 # CI & DEV VIRTUAL MACHINES
 resource "google_compute_address" "static" {
   count     = length(var.vm_name)
-  name      =  "${var.vm_name[count.index]}-gh"
+  name      =  "${var.vm_name[count.index]}-ipv4"
   region    =  var.region
 }
 resource "google_compute_instance" "ncdev" {
