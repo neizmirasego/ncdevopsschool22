@@ -1,12 +1,12 @@
 # CI & DEV VIRTUAL MACHINES
 resource "google_compute_address" "static" {
-  for_each  = var.vm_name
-  name      = "${each.key}-ipv4"
+  count = length(var.vm_name)
+  name      =  var.vm_name[count.index]
   region    =  var.region
 }
 resource "google_compute_instance" "ncdev" {
-  for_each      = var.vm_name
-  name          = "${each.key}-gh"
+  count = length(var.vm_name)
+  name          = var.vm_name[count.index]
   machine_type  = var.machine_type
   zone          = var.zone
   tags          = var.main_tags
@@ -19,7 +19,7 @@ resource "google_compute_instance" "ncdev" {
   network_interface {
     network = var.network
     access_config {
-            nat_ip = google_compute_address.static[each.key].address
+            nat_ip = google_compute_address.static[count.index].address
     }
   }
   metadata = {
