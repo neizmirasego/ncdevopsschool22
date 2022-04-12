@@ -5,7 +5,7 @@ resource "google_compute_address" "static" {
   region    =  var.region
 }
 resource "google_compute_instance" "ncdev" {
-  for_each      = var.project_name
+  for_each      = var.vm_name
   name          = "${each.key}-gh"
   machine_type  = var.machine_type
   zone          = var.zone
