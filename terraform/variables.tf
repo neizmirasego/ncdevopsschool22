@@ -1,5 +1,5 @@
 variable "vm_name" {
-  type        = set(string)
+  type        = list(string)
   description = "Name of the virtual mashine"
 }
 
