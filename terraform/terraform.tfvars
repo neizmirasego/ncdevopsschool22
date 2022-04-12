@@ -1,5 +1,5 @@
 vm_name = [ 
-    "ci-l2",
+    "ci1",
     "dev1"
 ]
 region                = "europe-west2" 
