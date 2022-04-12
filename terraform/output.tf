@@ -3,7 +3,7 @@ output "registry_ip" {
 }
 output "vm_ip" {
  value = [
-    for vm_name in google_compute_instance.ncdev : google_compute_instance.vm_name.network_interface.0.access_config.0.nat_ip
+    for vm_name in google_compute_instance.ncdev : google_compute_instance.ncdev.network_interface.0.access_config.0.nat_ip
   ]
 }
 #output "vm_ci_l2_ip" {
