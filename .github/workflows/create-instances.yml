@@ -6,7 +6,7 @@ on:
   
 env:
   TERRAFORM_DIR: "terraform"
-  CREATE_VM: "-target=google_compute_instance.vm_dev1 -target=google_compute_instance.vm_ci_l2"
+  CREATE_VM: "-target=google_compute_instance.ncdev"
   
 jobs:
   create-instances:
