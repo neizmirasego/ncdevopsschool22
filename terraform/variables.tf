@@ -1,3 +1,14 @@
+variable "vm_name" {
+  type        = set(string)
+  description = "Name of the virtual mashine"
+}
+
+variable "region" {
+  description = "GCP region name"
+  type        = string
+  default     = "us-central1"
+}
+
 variable "zone" {
   description = "GCP zone name"
   type        = string
