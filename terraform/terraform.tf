@@ -46,7 +46,6 @@ resource "google_compute_instance" "registry" {
   }
   network_interface {
     network    = var.network
-    network_ip = var.registry_network_ip
     access_config {
       nat_ip       = google_compute_address.static_registry.address
       network_tier = var.network_tier
