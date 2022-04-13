@@ -28,11 +28,16 @@ resource "google_compute_instance" "ncdev" {
 }
 
 #REGISTRY VIRTUAL MACHINE
+resource "google_compute_address" "static_registry" {
+  name      = "registry-ipv4"
+  region    =  var.region
+}
 resource "google_compute_instance" "registry" {
   name         = "registry"
   machine_type = var.machine_type
   zone         = var.zone
   tags         = var.registry_tags
+  hostname     = "registry.dev"
   boot_disk {
     initialize_params {
       size  = "30"
@@ -43,7 +48,7 @@ resource "google_compute_instance" "registry" {
     network    = var.network
     network_ip = var.registry_network_ip
     access_config {
-      nat_ip       = var.registry_nat_ip
+      nat_ip       = google_compute_address.static_registry.address
       network_tier = var.network_tier
     }
   }
