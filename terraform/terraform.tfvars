@@ -9,4 +9,6 @@ network               = "default"
 ssh_user              = "lobofffailodrom"
 main_tags             = ["tcp-5000", "tcp-8080"]
 registry_tags         = ["tcp-5000"]
+registry_hostname     = "registry.dev"
+
 
