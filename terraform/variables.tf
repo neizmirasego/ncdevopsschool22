@@ -27,16 +27,16 @@ variable "machine_type" {
   default     = "e2-small"
 }
 
-variable "registry_network_ip" {
-  description = "regestry network_ip address."
-  type        = string
-  default     = "10.128.0.5"
-}
-
 variable "main_tags" {
   description = "tags list"
   type        = list(string)
   default     = ["tcp-8080"]
+}
+
+variable "network_tier" {
+  description = "network_tier name"
+  type        = string
+  default     = "PREMIUM"
 }
 
 variable "registry_tags" {
@@ -45,16 +45,22 @@ variable "registry_tags" {
   default     = ["tcp-5000"]
 }
 
-variable "registry_nat_ip" {
-  description = "regestry nat_ip address."
+variable "registry_hostname" {
+  description = "registry hostname"
   type        = string
-  default     = "35.225.221.195"
+  default     = "registry.dev"
 }
 
-variable "network_tier" {
-  description = "network_tier name"
+variable "registry_network_ip" {
+  description = "registry network_ip address."
   type        = string
-  default     = "PREMIUM"
+  default     = "10.128.0.5"
+}
+
+variable "registry_nat_ip" {
+  description = "registry nat_ip address."
+  type        = string
+  default     = "35.225.221.195"
 }
 
 variable "ssh_user" {
