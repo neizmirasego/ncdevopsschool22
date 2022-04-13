@@ -37,7 +37,7 @@ resource "google_compute_instance" "registry" {
   machine_type = var.machine_type
   zone         = var.zone
   tags         = var.registry_tags
-  hostname     = "registry.dev"
+  hostname     = var.registry_hostname     
   boot_disk {
     initialize_params {
       size  = "30"
