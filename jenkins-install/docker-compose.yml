@@ -10,16 +10,10 @@ services:
     restart: always
     container_name: jenkins
     environment:
-      JAVA_OPTS: -Djenkins.install.runSetupWizard=false
       JENKINS_ADMIN_ID: admin
       JENKINS_ADMIN_PASSWORD: ncdev22
     volumes:
       - ./configs/:/jenkins_configs
       - ./jenkins_home:/var/jenkins_home/
       - /var/run/docker.sock:/var/run/docker.sock
-volumes:
-  configs:
-    driver: local
-  jenkins_home:
-    driver: local
 
