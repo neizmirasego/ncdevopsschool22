@@ -1,5 +1,5 @@
 FROM jenkins/jenkins:latest
-
+ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
 ENV CASC_JENKINS_CONFIG /jenkins_configs
 
 USER root
