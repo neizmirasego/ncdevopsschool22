@@ -1,13 +1,14 @@
 env.STAGEBUILD = ''
 env.STAGEPUSH = ''
+env.STAGEPDEPLOY = ''
 pipeline {
     agent any
     stages {
         stage('Building docker image') {
             steps {
                 echo 'Start building docker image'
-                dir ('NC2022') {
-                      sh ('docker build -t ncdevreg.ml:5000/application:$GIT_BRANCH-$BUILD_NUMBER .')
+                dir ('flask_webapp') {
+                      sh ('docker build -t ncdevreg.ml:5000/flask_webapp-$GIT_BRANCH:$BUILD_NUMBER .')
                 }
             }
             post {
@@ -26,7 +27,7 @@ pipeline {
                                                   usernameVariable: 'localregistryUser')])
                   {
                     sh ('docker login https://ncdevreg.ml:5000 -u $localregistryUser -p $localregistryPassword')
-                    sh ('docker push ncdevreg.ml:5000/application:$GIT_BRANCH-$BUILD_NUMBER')
+                    sh ('docker push ncdevreg.ml:5000/flask_webapp-$GIT_BRANCH:$BUILD_NUMBER')
                   }
            }
            post {
@@ -37,6 +38,20 @@ pipeline {
          	           }
                    }
          }
+         stage('deploy'){
+           steps {
+                dir ('flask_webapp') {
+                        sh ('docker stack deploy --compose-file docker-compose.yml stack-app --with-registry-auth') }
+
+                }
+           post {
+             failure {
+              	 script {
+              			 env.STAGEPDEPLOY = "Failure at deploy stage"
+                        }
+              	     }
+                }
+           }
    }
    post {
      success {
@@ -54,7 +69,7 @@ pipeline {
         		  string(credentialsId: 'idchatncdev22', variable: 'CHAT_ID')])
             {
                sh  ("""
-                       curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${CHAT_ID} -d parse_mode=markdown -d text='*$JOB_NAME* : RESULT  *Branch*: $GIT_BRANCH *Build* : NOT ok: ${env.STAGEBUILD} ${env.STAGEPUSH}'
+                       curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${CHAT_ID} -d parse_mode=markdown -d text='*$JOB_NAME* : RESULT  *Branch*: $GIT_BRANCH *Build* : NOT ok: ${env.STAGEBUILD} ${env.STAGEPUSH} ${env.STAGEPDEPLOY}'
                     """)
             }
        }
