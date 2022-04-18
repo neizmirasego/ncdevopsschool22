@@ -1,34 +1,20 @@
 version: '3.7'
 
 services:
-  #vis:
-    #image: dockersamples/visualizer
-    #ports:
-      #- "5001:8080"
-    #volumes:
-      #- "/var/run/docker.sock:/var/run/docker.sock"
-    #deploy:
-      #placement:
-        #constraints: [node.role == manager]
-    #networks:
-      #- flask-network
+  vis:
+    image: dockersamples/visualizer
+    ports:
+      - "5001:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    deploy:
+      placement:
+        constraints: [node.role == manager]
   webapp:
     image: ncdevreg.ml:5000/flask_webapp-$GIT_BRANCH:$BUILD_NUMBER
-    #user: root
-    #restart: always
     ports:
       - "5555:80"
     deploy:
       replicas: 2
-      update_config:
-        #parallelism: 2
-        delay: 10s
-      #restart_policy:
-        #condition: on-failure
-        #delay: 5s
-    #networks:
-      #- flask-network
-
-#networks:
-  #flask-network:
-  
+      restart_policy:
+        condition: on-failure
