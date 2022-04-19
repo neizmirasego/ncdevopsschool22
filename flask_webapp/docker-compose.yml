@@ -15,7 +15,7 @@ services:
     ports:
       - "5555:80"
     volumes:
-      - "./database.db:/database.db"
+      - "./database.db:/app/database.db"
     deploy:
       replicas: 2
       restart_policy:
