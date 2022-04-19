@@ -30,7 +30,7 @@ resource "google_compute_instance" "ncdev" {
 #REGISTRY VIRTUAL MACHINE
 resource "google_compute_address" "staticreg" {
   name      = "registry-ipv4"
-  #region    =  var.region
+  region    =  var.region
 }
 resource "google_compute_instance" "registry" {
   name         = "registry"
