@@ -14,8 +14,6 @@ services:
     image: ncdevreg.ml:5000/flask_webapp-$GIT_BRANCH:$BUILD_NUMBER
     ports:
       - "5555:80"
-    volumes:
-      - "./database.db:/app/database.db"
     deploy:
       replicas: 2
       restart_policy:
