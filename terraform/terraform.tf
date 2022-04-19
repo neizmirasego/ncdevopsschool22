@@ -28,7 +28,7 @@ resource "google_compute_instance" "ncdev" {
 }
 
 #REGISTRY VIRTUAL MACHINE
-resource "google_compute_address" "static_registry" {
+resource "google_compute_address" "static" {
   name      = "registry-ipv4"
   region    =  var.region
 }
@@ -47,7 +47,7 @@ resource "google_compute_instance" "registry" {
   network_interface {
     network    = var.network
     access_config {
-      nat_ip       = google_compute_address.static_registry.address
+      nat_ip       = google_compute_address.static.address
       network_tier = var.network_tier
     }
   }
